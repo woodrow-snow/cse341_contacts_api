@@ -1,0 +1,31 @@
+# =============================
+# For Render Testing
+# =============================
+
+# base route
+get https://cse341-contacts-api-n92e.onrender.com
+###
+
+# get all contacts
+get https://cse341-contacts-api-n92e.onrender.com/contacts
+###
+
+# specific contact
+get https://cse341-contacts-api-n92e.onrender.com/contacts/69fe20348a4cfc522960e072
+###
+
+# =============================
+# For Local testing
+# =============================
+
+# base route
+get http://localhost:5500
+###
+
+# get all contacts
+get http://localhost:5500/contacts
+###
+
+# specific contact
+get http://localhost:5500/contacts/69fe20348a4cfc522960e072
+###
