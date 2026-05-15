@@ -14,6 +14,46 @@ get https://cse341-contacts-api-n92e.onrender.com/contacts
 get https://cse341-contacts-api-n92e.onrender.com/contacts/69fe20348a4cfc522960e072
 ###
 
+# testing post route
+post https://cse341-contacts-api-n92e.onrender.com/contacts
+Content-Type: application/json
+
+{
+    "_id": "6a078594edc5eedef5711013",
+    "firstName": "Bobby",
+    "lastName": "Jones",
+    "email": "bjones@example.com",
+    "favoriteColor": "Brown",
+    "birthday": "01/1999"
+}
+###
+
+# Testing put route
+put https://cse341-contacts-api-n92e.onrender.com/contacts/6a078594edc5eedef5711013
+Content-Type: application/json
+
+{
+    "firstName": "Bobby 2",
+    "favoriteColor": "yellow"
+}
+###
+
+# reset put route
+put https://cse341-contacts-api-n92e.onrender.com/contacts/6a078594edc5eedef5711013
+Content-Type: application/json
+
+{
+  "firstName": "Bobby",
+  "lastName": "Jones",
+  "email": "bjones@example.com",
+  "favoriteColor": "Brown",
+  "birthday": "01/1999"
+}
+###
+
+# Testing delete route
+delete https://cse341-contacts-api-n92e.onrender.com/contacts/6a078594edc5eedef5711013
+
 # =============================
 # For Local testing
 # =============================
