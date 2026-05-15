@@ -2,20 +2,108 @@ const mongo = require('../data/database');
 const ObjectId = require('mongodb').ObjectId;
 
 const getAll = async (req, res) => {
-    const result = await mongo.getDatabase().db().collection('contacts').find();
-    result.toArray().then((contacts) => {
-        res.setHeader('Contenty-Type', 'application/json');
-        res.status(200).json(contacts)
-    });
+  const result = await mongo.getDatabase().db().collection('contacts').find();
+  result.toArray().then((contacts) => {
+    res.setHeader('Contenty-Type', 'application/json');
+    res.status(200).json(contacts);
+  });
 };
 
-const getSingle = async (req, res) => {
+const getSingle = async (req, res, id = null) => {
+  // creating result var
+  let result;
+
+  // getting contact by id
+  if (id == null) {
     const contactId = new ObjectId(req.params.id);
-    const result = await mongo.getDatabase().db().collection('contacts').find({ _id: contactId});
+    result = await mongo.getDatabase().db().collection('contacts').find({ _id: contactId });
+    // returning data
     result.toArray().then((contacts) => {
-        res.setHeader('Contenty-Type', 'application/json');
-        res.status(200).json(contacts[0])
+      res.setHeader('Contenty-Type', 'application/json');
+      res.status(200).json(contacts[0]);
     });
+  } else {
+    result = await mongo.getDatabase().db().collection('contacts').find({ _id: id });
+    return result.toArray().then((contacts) => {
+      return contacts[0];
+    });
+  }
 };
 
-module.exports = { getAll, getSingle}
+const createContact = async (req, res) => {
+  console.log(req.body);
+
+  try {
+    // Validating request
+    if (!req.body.firstName) {
+      res.status(400).send({ message: 'Content can not be empty!' });
+      return;
+    }
+
+    // creating new contact
+    const newContact = {
+      _id: new ObjectId(req.body._id),
+      firstName: req.body.firstName,
+      lastName: req.body.lastName,
+      email: req.body.email,
+      favoriteColor: req.body.favoriteColor,
+      birthday: req.body.birthday
+    };
+
+    // saving new contact in mongodb
+    const result = await mongo.getDatabase().db().collection('contacts').insertOne(newContact);
+    res.status(201).send(result.insertedId);
+  } catch (err) {
+    console.error(err);
+
+    res.status(500).send({
+      message: 'Error creating contact'
+    });
+  }
+};
+
+const updateContact = async (req, res) => {
+  const contactId = new ObjectId(req.params.id);
+
+  try {
+    // getting orinial contact and moving forward with update
+    const ogContact = await getSingle(req, res, contactId);
+
+    const result = await mongo
+      .getDatabase()
+      .db()
+      .collection('contacts')
+      .updateOne(
+        { _id: contactId },
+        {
+          $set: {
+            firstName: req.body.firstName || ogContact.firstName,
+            lastName: req.body.lastName || ogContact.lastName,
+            email: req.body.email || ogContact.email,
+            favoriteColor: req.body.favoriteColor || ogContact.favoriteColor,
+            birthday: req.body.birthday || ogContact.birthday
+          }
+        }
+      );
+    res.status(200).send('Update Successful');
+  } catch (error) {
+    console.error(error);
+  }
+};
+
+const deleteContact = async (req, res) => {
+  const contactId = new ObjectId(req.params.id);
+
+  try {
+    const result = await mongo
+      .getDatabase()
+      .db()
+      .collection('contacts')
+      .deleteOne({ _id: contactId });
+    res.status(200).send('Deletion Successful');
+  } catch (err) {
+    console.error(err);
+  }
+};
+
+module.exports = { getAll, getSingle, createContact, updateContact, deleteContact };
