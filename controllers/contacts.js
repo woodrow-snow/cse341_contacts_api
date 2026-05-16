@@ -24,9 +24,8 @@ const getSingle = async (req, res) => {
 
 const getSinglebyId = async (id) => {
  const result = await mongo.getDatabase().db().collection('contacts').find({ _id: id });
-  result.toArray().then((contacts) => {
-    return contacts[0];
-  });
+  const contacts = await result.toArray();
+  return contacts[0];
 }
 
 const createContact = async (req, res) => {
@@ -84,8 +83,8 @@ const updateContact = async (req, res) => {
     const ogContact = await getSinglebyId(contactId);
 
     // added test code
-    console.log("ogContact" + ogContact);
-    console.log("req.body" + req.body);
+    console.log("ogContact " + ogContact.toString());
+    console.log("req.body " + req.body.toString());
 
     const result = await mongo
       .getDatabase()
