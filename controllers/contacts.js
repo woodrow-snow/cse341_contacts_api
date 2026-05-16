@@ -91,11 +91,11 @@ const updateContact = async (req, res) => {
         { _id: contactId },
         {
           $set: {
-            firstName: req.body.firstName || ogContact.firstName,
-            lastName: req.body.lastName || ogContact.lastName,
-            email: req.body.email || ogContact.email,
-            favoriteColor: req.body.favoriteColor || ogContact.favoriteColor,
-            birthday: req.body.birthday || ogContact.birthday
+            firstName: req.body.firstName ?? ogContact.firstName,
+            lastName: req.body.lastName ?? ogContact.lastName,
+            email: req.body.email ?? ogContact.email,
+            favoriteColor: req.body.favoriteColor ?? ogContact.favoriteColor,
+            birthday: req.body.birthday ?? ogContact.birthday
           }
         }
       );
