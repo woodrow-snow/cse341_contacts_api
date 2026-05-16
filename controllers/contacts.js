@@ -83,6 +83,10 @@ const updateContact = async (req, res) => {
     // getting orinial contact and moving forward with update
     const ogContact = await getSinglebyId(contactId);
 
+    // added test code
+    console.log("ogContact" + ogContact);
+    console.log("req.body" + req.body);
+
     const result = await mongo
       .getDatabase()
       .db()
