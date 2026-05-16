@@ -41,7 +41,7 @@ const createContact = async (req, res) => {
     }
 
     // getting _id if in request and creating new contact
-    const newContact;
+    let newContact;
     if (req.body._id != "" || req.body._id != null) {
       newContact = {
         _id: new ObjectId(req.body._id),
