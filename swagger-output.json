@@ -5,7 +5,7 @@
     "description": "This is the contacts API built in week 1 and 2 of CSE341",
     "version": "1.0.0"
   },
-  "host": "https://cse341-contacts-api-n92e.onrender.com",
+  "host": "cse341-contacts-api-n92e.onrender.com",
   "servers": [
     {
       "url": "https://cse341-contacts-api-n92e.onrender.com"
@@ -13,7 +13,7 @@
   ],
   "basePath": "/",
   "schemes": [
-    "http"
+    "https"
   ],
   "paths": {
     "/": {
@@ -36,7 +36,7 @@
         }
       },
       "post": {
-        "description": "",
+        "description": "Creates a new contact within the database. If you do not have an ID you wish to use please remove the _id line.",
         "parameters": [
           {
             "name": "body",
