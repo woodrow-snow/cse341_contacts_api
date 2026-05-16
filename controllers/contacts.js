@@ -13,6 +13,9 @@ const getSingle = async (req, res, id = null) => {
   // creating result var
   let result;
 
+  // testing
+  console.log('id = ' + id);
+
   // getting contact by id
   if (id == null) {
     const contactId = new ObjectId(req.params.id);

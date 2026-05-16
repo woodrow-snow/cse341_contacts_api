@@ -14,6 +14,10 @@ get https://cse341-contacts-api-n92e.onrender.com/contacts
 get https://cse341-contacts-api-n92e.onrender.com/contacts/69fe20348a4cfc522960e072
 ###
 
+#6a089a9da32bcd677ab6054f
+get https://cse341-contacts-api-n92e.onrender.com/contacts/6a089a9da32bcd677ab6054f
+###
+
 # testing post route
 post https://cse341-contacts-api-n92e.onrender.com/contacts
 Content-Type: application/json

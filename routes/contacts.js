@@ -22,7 +22,9 @@ router.post(
 /* ***********************************************
  * Put Routes
  * *********************************************** */
-router.put('/:id', contactsController.updateContact);
+router.put('/:id',
+    // #swagger.description = 'Updates an entry in the database. Please remove lines that you don't want to update.'
+    contactsController.updateContact);
 
 /* ***********************************************
  * Delete Routes
