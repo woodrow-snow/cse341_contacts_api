@@ -9,29 +9,25 @@ const getAll = async (req, res) => {
   });
 };
 
-const getSingle = async (req, res, id = null) => {
-  // creating result var
-  let result;
-
-  // testing
-  console.log('id = ' + id);
-
+const getSingle = async (req, res) => {
   // getting contact by id
-  if (id == null) {
-    const contactId = new ObjectId(req.params.id);
-    result = await mongo.getDatabase().db().collection('contacts').find({ _id: contactId });
-    // returning data
-    result.toArray().then((contacts) => {
-      res.setHeader('Contenty-Type', 'application/json');
-      res.status(200).json(contacts[0]);
-    });
-  } else {
-    result = await mongo.getDatabase().db().collection('contacts').find({ _id: id });
-    return result.toArray().then((contacts) => {
-      return contacts[0];
-    });
-  }
+
+  const contactId = new ObjectId(req.params.id);
+  const result = await mongo.getDatabase().db().collection('contacts').find({ _id: contactId });
+
+  // returning data
+  result.toArray().then((contacts) => {
+    res.setHeader('Content-Type', 'application/json');
+    res.status(200).json(contacts[0]);
+  });
 };
+
+const getSinglebyId = async (id) => {
+ const result = await mongo.getDatabase().db().collection('contacts').find({ _id: id });
+  result.toArray().then((contacts) => {
+    return contacts[0];
+  });
+}
 
 const createContact = async (req, res) => {
   console.log(req.body);
@@ -85,7 +81,7 @@ const updateContact = async (req, res) => {
 
   try {
     // getting orinial contact and moving forward with update
-    const ogContact = await getSingle(req, res, contactId);
+    const ogContact = await getSinglebyId(contactId);
 
     const result = await mongo
       .getDatabase()
