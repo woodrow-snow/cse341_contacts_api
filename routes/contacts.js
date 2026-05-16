@@ -12,7 +12,7 @@ router.get('/:id', contactsController.getSingle);
 /* ***********************************************
  * Post Routes
  * *********************************************** */
-router.post('/', contactsController.createContact);
+router.post('/', description="Creates a new contact within the database. If you do not have an ID you wish to use please remove the _id line.", contactsController.createContact);
 
 /* ***********************************************
  * Put Routes
