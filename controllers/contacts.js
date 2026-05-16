@@ -40,15 +40,27 @@ const createContact = async (req, res) => {
       return;
     }
 
-    // creating new contact
-    const newContact = {
-      _id: new ObjectId(req.body._id),
-      firstName: req.body.firstName,
-      lastName: req.body.lastName,
-      email: req.body.email,
-      favoriteColor: req.body.favoriteColor,
-      birthday: req.body.birthday
-    };
+    // getting _id if in request and creating new contact
+    const newContact;
+    if (req.body._id != "" || req.body._id != null) {
+      newContact = {
+        _id: new ObjectId(req.body._id),
+        firstName: req.body.firstName,
+        lastName: req.body.lastName,
+        email: req.body.email,
+        favoriteColor: req.body.favoriteColor,
+        birthday: req.body.birthday
+      };
+    }
+    else {
+      newContact = {
+        firstName: req.body.firstName,
+        lastName: req.body.lastName,
+        email: req.body.email,
+        favoriteColor: req.body.favoriteColor,
+        birthday: req.body.birthday
+      }
+    }
 
     // saving new contact in mongodb
     const result = await mongo.getDatabase().db().collection('contacts').insertOne(newContact);
